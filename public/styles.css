@@ -1,0 +1,121 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container-fluid {
+  height: 100vh;
+}
+
+/* Header styles */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: #007bff;
+  padding: 0 20px;
+}
+
+/* Navbar styles */
+
+.navbar {
+  display: flex;
+  flex-grow: 1;
+  background-color: #5e01b5;
+}
+
+.navbar-brand {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333; /* Adjust brand name color as desired */
+}
+
+.nav-link {
+  color: #333; /* Base text color */
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+
+  /* Hover effects
+  &:hover {
+    color: #007bff; /* Hover color for Bootstrap theme */
+    /* text-decoration: none; /* Prevent underline on hover */
+  /* } */ 
+
+  &.active {
+    font-weight: bold; /* Highlight active link */
+  }
+}
+
+/* Dropdown menu styles */
+
+.dropdown-menu {
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  color: #333;
+
+  &:hover {
+    background-color: #f1f1f1; /* Hover background */
+  }
+}
+
+/* Upload section styles (replace placeholders) */
+
+.upload-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+
+.upload-wrapper label {
+  font-size: 0.8rem; /* Adjust font size */
+  margin-right: 0.5rem; /* Add spacing */
+}
+
+/* Sidebar styles */
+
+.sidebar {
+  background-color: #0e0e0e;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px; /* Added padding for top spacing */
+}
+
+.nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #ececec; /* Adjust sidebar text color as desired */
+  padding: 10px 20px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* .nav-link:hover {
+  background-color: #f5f5f5;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  background-color: #f5f5f5;
+} */
+
+.content {
+  padding: 20px;
+}
+
+/* Fixed content styles */
+
+.fixed-content {
+  border-right: 1px solid #ddd;
+}
