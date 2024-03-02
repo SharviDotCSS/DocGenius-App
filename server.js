@@ -142,6 +142,33 @@ app.listen(PORT, () => {
 
 //-----------------------------------------------------------------------------------------
 // Add this code to handle translation
+// app.post('/translate', async (req, res) => {
+//   const { document, targetLanguage } = req.body;
+  
+//   try {
+//     const translationResponse = await axios.post('https://api.openai.com/v1/chat/completions', {
+//       model: 'gpt-3.5-turbo',
+//       messages: [
+//         { role: 'system', content: 'You are a helpful assistant that translates text.' },
+//         { role: 'user', content: document },
+//       ],
+//     }, {
+//       headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${OpenAIAPIKey}`,
+//       },
+//     });
+//     console.log('API Response:', response.data);
+
+
+//     const translation = translationResponse.data.choices[0].message.content;
+//     res.json({ translation });
+//   } catch (error) {
+//     console.error('Error translating document:', error.message);
+//     res.status(500).json({ error: 'Internal Server Error', details: error.message });
+//   }
+// });
+
 app.post('/translate', async (req, res) => {
   const { document, targetLanguage } = req.body;
 
@@ -150,7 +177,7 @@ app.post('/translate', async (req, res) => {
       model: 'gpt-3.5-turbo',
       messages: [
         { role: 'system', content: 'You are a helpful assistant that translates text.' },
-        { role: 'user', content: document },
+        { role: 'user', content: `Translate the following text to ${targetLanguage}: ${document}` },
       ],
     }, {
       headers: {
@@ -159,6 +186,8 @@ app.post('/translate', async (req, res) => {
       },
     });
 
+    console.log('API Response:', translationResponse.data); // Correct the variable name
+
     const translation = translationResponse.data.choices[0].message.content;
     res.json({ translation });
   } catch (error) {
@@ -166,3 +195,5 @@ app.post('/translate', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error', details: error.message });
   }
 });
+
+
