@@ -90,6 +90,8 @@ document.getElementById('document-upload').addEventListener('change', async func
   //   }
   // });
 
+ // ----------------------------------------------------------------------------------
+ //Translation
   document.getElementById('translate-button').addEventListener('click', async function () {
     const targetLanguage = document.getElementById('target-language').value;
     const fileInput = document.getElementById('document-upload');
@@ -127,4 +129,40 @@ document.getElementById('document-upload').addEventListener('change', async func
     reader.readAsText(file);
   });
   
-  
+
+  //--------------------------------------------------------------------------------
+  // Sentimental analysis
+document.getElementById('analyze-sentiment-button').addEventListener('click', async function () {
+  const fileInput = document.getElementById('document-upload');
+  const file = fileInput.files[0];
+
+  if (!file) {
+      alert('Please choose a file.');
+      return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = async function (event) {
+      const documentContent = event.target.result;
+
+      try {
+          const response = await fetch('/sentiment', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: `document=${encodeURIComponent(documentContent)}`,
+          });
+
+          const result = await response.json();
+
+          document.getElementById('sentiment-result').innerHTML = `<p><strong>Sentiment:</strong> ${result.sentiment}</p>`;
+      } catch (error) {
+          console.error('Error analyzing sentiment:', error.message);
+          alert('Error analyzing sentiment. Please try again.');
+      }
+  };
+
+  reader.readAsText(file);
+});

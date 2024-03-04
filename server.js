@@ -196,4 +196,32 @@ app.post('/translate', async (req, res) => {
   }
 });
 
+//--------------------------------------------------------------------------------
+//Sentimental analysis
+app.post('/sentiment', async (req, res) => {
+  const { document } = req.body;
+
+  try {
+    const sentimentResponse = await axios.post('https://api.openai.com/v1/chat/completions', {
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system', content: 'You are a helpful assistant that performs sentiment analysis.' },
+        { role: 'user', content: document },
+      ],
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OpenAIAPIKey}`,
+      },
+    });
+
+    console.log('API Response:', sentimentResponse.data);
+
+    const sentiment = sentimentResponse.data.choices[0].message.content;
+    res.json({ sentiment });
+  } catch (error) {
+    console.error('Error analyzing sentiment:', error.message);
+    res.status(500).json({ error: 'Internal Server Error', details: error.message });
+  }
+});
 
