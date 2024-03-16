@@ -50,8 +50,17 @@ function handleLinkClick(event) {
   }
 }
 
+//Redirecting event listeners
 
+document.addEventListener('DOMContentLoaded', () => {
+  const signupButton = document.getElementById('signup-button');
 
+  // Add event listener to the sign-up button
+  signupButton.addEventListener('click', () => {
+      // Redirect to the sign-up page
+      window.location.href = 'Signup-module/signup.html';
+  });
+});
 
 
 
