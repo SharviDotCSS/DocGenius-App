@@ -39,6 +39,27 @@ db.connect(err => {
     }
 });
 
+app.get('/', (req, res) => {
+  res.redirect('/LogIn');
+});
+
+// Set up a route for the login page
+app.get('/logIn', (req, res) => {
+  res.sendFile(__dirname + '/LogIn.html');
+});
+
+// Serve the CSS file for the login page with the correct MIME type
+app.get('/style.css', (req, res) => {
+  res.header('Content-Type', 'text/css');
+  res.sendFile(__dirname + '/style.css');
+});
+
+// Serve the JavaScript file for the login page with the correct MIME type
+app.get('/script.js', (req, res) => {
+  res.header('Content-Type', 'application/javascript');
+  res.sendFile(__dirname + '/script.js');
+});
+
 // Route for handling login requests
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
