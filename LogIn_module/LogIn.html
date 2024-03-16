@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login to DocGenius</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+  <div class="container">
+    <div class="form-wrapper">
+      <h2>Welcome back to DocGenius</h2>
+      <form id="login-form" method="post" action="/login"> <!-- Changed action to /login -->
+        <label for="email">Enter Your Email:</label>
+        <input type="email" id="email" name="email" placeholder="e.g., you@domain.com" required>
+        <div class="error" id="email-error"></div>
+
+        <label for="password">Enter Your Password:</label> <!-- Changed label text -->
+        <input type="password" id="password" name="password" placeholder="Your password" required> <!-- Changed placeholder text -->
+        <div class="error" id="password-error"></div>
+
+        <button type="submit" class="cta-button"><b>Login</b></button> <!-- Changed button text -->
+      </form>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
