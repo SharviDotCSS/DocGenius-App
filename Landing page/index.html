@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocGenius - Unlock the Power of Your Documents</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#">DocGenius</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#about-us">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact-us">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-outline-primary" href="#" data-toggle="modal" data-target="#loginModal">Log In</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Login</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="loginForm">
+            <div class="form-group">
+              <label for="username">Enter Username:</label>
+              <input type="text" class="form-control" id="username" name="username" required>
+              <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+              <label for="password">Enter Password:</label>
+              <input type="password" class="form-control" id="password" name="password" required>
+              <div class="invalid-feedback"></div>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" id="loginButton" disabled>Log In</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="hero d-flex align-items-center">
+    <div class="container">
+      <h1>Unlock the Power of Your Documents</h1>
+      <p>Organize, analyze, and transform your documents effortlessly with DocGenius, your all-in-one document solution.</p>
+      <div class="buttons">
+        <a href="#" class="btn btn-secondary">Sign Up</a>
+        <a href="#" class="btn btn-primary">Log In</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="features text-center">
+    <h2>Powerful Features to Enhance Your Documents</h2>
+    <div class="container">
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+          <div class="card">
+            <img src="Assets\translation.png" alt="Feature 1 Image">
+            <h3>Translate</h3>
+            <p>Break language barriers and access information in your preferred language.</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <img src="Assets\sentimental-analysis1.png" alt="Feature 2 Image" id="sentimental-analysis-img" style="height: 120px;">
+            <h3>Sentiment Analysis</h3>
+            <p>Uncover the hidden emotions and opinions within your documents.</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+            <img src="Assets\visualisation.png" alt="Feature 3 Image">
+            <h3>Visualization</h3>
+            <p>Turn complex data into clear and insightful charts and graphs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-us" id="about-us">
+    <h2>About DocGenius</h2>
+    <div class="container">
+      <p>DocGenius is a powerful and user-friendly platform designed to help you manage, analyze, and extract valuable insights from your documents. We believe in the power of information and strive to empower individuals and organizations to unlock the full potential of their documents.</p>
+      <a href="#" class="btn btn-primary">Learn More</a>
+    </div>
+  </section>
+
+  <section class="contact-us">
+    <h2>Contact Us</h2>
+  
+    <p>Get in touch with us using the information below or fill out the contact form.</p>
+  
+    <div class="contact-info">
+      <div class="item">
+        <i class="far"></i> <span>email: docgeniusteam@example.com</span>
+      </div>
+      <div class="item">
+        <i class="fas fa-phone"></i> <span>call: +91 9898322456</span>
+      </div>
+      </div>
+  
+    </section>
+</body>
+</html>  

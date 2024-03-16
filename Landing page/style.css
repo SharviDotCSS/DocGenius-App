@@ -1,0 +1,242 @@
+/* Color palette */
+:root {
+    --primary-color: #007bff; /* Vibrant blue */
+    --secondary-color: #f8f9fa; /* Neutral gray */
+    --accent-color: #f1c40f; /* Contrast accent */
+  }
+  
+  /* Typography */
+  body {
+    font-family: "Open Sans", sans-serif;
+    /* color: #333; */
+    background-image: url("Asset 8.png");
+    background-repeat: no-repeat;
+  }
+  
+  h1, h2, h3 {
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+  }
+  
+  /* Reset and Navbar */
+  html, body {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navbar {
+    background-color: #C7B9FF;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif; /* Use Google Font */
+  }
+  
+  .navbar-nav .nav-link {
+    color: #333;
+    padding: 0.5rem 1rem;
+    font-family: 'Open Sans', sans-serif; /* Use Google Font */
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: var(--primary-color);
+  }
+  
+  .btn-outline-primary {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background-color: transparent;
+  }
+  
+  .hero {
+    background-image: url("1x\Asset 11.png");
+    background-color: rgba(56, 56, 56, 0.2); /* 0.8 opacity */
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  .hero h1 {
+    font-size: 3.5rem;
+    line-height: 1; /* Adjust as needed */
+    color: #1b1b1b;
+    margin-bottom: 1rem;
+    max-width: 70%; /* Example width, adjust based on your design */
+    word-wrap: break-word; /* Allow breaking words if needed */
+    flex: 1;
+    margin: 0 auto;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    line-height: 1.7; /* Adjust as needed */
+    color: #1b1b1b;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    max-width: 50%; /* Example width, adjust based on design */
+    word-wrap: break-word; /* Allow breaking words if needed */
+    overflow: wrap; /* Wrap overflowing text */
+    flex: 1;
+    margin: 0 auto;
+  }
+  
+  .hero .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  
+  .hero .btn-outline-primary {
+    /* Existing styles */
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background-color: transparent;
+  }
+  
+  
+  .features {
+    padding: 5rem 0;
+    background-color: var(--secondary-color); /* Optional background */
+    height: 80vh;
+    justify-content: center;
+    
+  }
+  
+  .features h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #1b1b1b;
+    margin-top: 2rem;
+  }
+  
+  .features .card {
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+    text-align: center;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+    margin-top: 2rem;
+    padding: 1rem;
+  }
+  
+  .features .card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .features .card img {
+    max-width: 40%;
+    height: 120px;
+    /* object-fit: cover; */
+    border-radius: 4px;
+  }
+
+  #sentimental-analysis-img{
+    max-width: 50%;
+    height: 150px;
+  }
+  
+  .features .card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+  }
+  
+  .features .card p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #333;
+  }
+  
+  .about-us {
+    padding: 5rem 0;
+    text-align: center; /* Center align everything */
+    height: 50vh;
+    margin-top: 3rem;
+  }
+
+  .about-us,
+.contact-us {
+    text-align: center;
+  padding: 5rem 0;
+}
+
+.about-us .section-title,
+.contact-us .section-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: var(--primary-color);
+}
+
+.about-us .section-text,
+.contact-us .section-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+.contact-us {
+    padding: 5rem 0;
+    background-color: #C7B9FF; /* Optional footer-like background */
+    
+  }
+  
+  .contact-us h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #1b1b1b;
+  }
+  
+  /*  */
+  
+  .contact-us .contact-info .item {
+    line-height: 1.5;
+  }
+  
+  .contact-us .contact-info .item i { /* Add icons (replace with your choices) */
+    margin-right: 1rem;
+  }
+  
+  /* Example contact information */
+  .contact-us .contact-info .item:nth-child(1) {
+    i {
+      font-family: "Font Awesome 6"; /* Replace with your icon font */
+      content: "\f0e0"; /* Email icon */
+    }
+    span {
+      font-weight: bold;
+    }
+  }
+  
+  .contact-us .contact-info .item:nth-child(2) {
+    i {
+      font-family: "Font Awesome 6"; /* Replace with your icon font */
+      content: "\f095"; /* Phone icon */
+    }
+    span {
+      font-weight: bold;
+    }
+  }
+  
+  .invalid-feedback {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+  
+  #loginButton {
+    pointer-events: none; /* Disable button initially */
+  }
+  
+  #loginForm:valid #loginButton {
+    pointer-events: auto; /* Enable button on valid form */
+  }
+  
