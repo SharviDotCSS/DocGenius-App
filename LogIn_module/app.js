@@ -26,7 +26,7 @@ const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'sharvipw#2003',
-  database: 'docgenius',
+    database: 'docgenius',
 });
 
 // Connect to the database
@@ -40,24 +40,24 @@ db.connect(err => {
 });
 
 app.get('/', (req, res) => {
-  res.redirect('/LogIn');
+    res.redirect('/LogIn');
 });
 
 // Set up a route for the login page
 app.get('/logIn', (req, res) => {
-  res.sendFile(__dirname + '/LogIn.html');
+    res.sendFile(__dirname + '/LogIn.html');
 });
 
 // Serve the CSS file for the login page with the correct MIME type
 app.get('/style.css', (req, res) => {
-  res.header('Content-Type', 'text/css');
-  res.sendFile(__dirname + '/style.css');
+    res.header('Content-Type', 'text/css');
+    res.sendFile(__dirname + '/style.css');
 });
 
 // Serve the JavaScript file for the login page with the correct MIME type
 app.get('/script.js', (req, res) => {
-  res.header('Content-Type', 'application/javascript');
-  res.sendFile(__dirname + '/script.js');
+    res.header('Content-Type', 'application/javascript');
+    res.sendFile(__dirname + '/script.js');
 });
 
 // Route for handling login requests
@@ -83,13 +83,22 @@ app.post('/login', (req, res) => {
                     return res.status(500).send('Error occurred while logging in.');
                 }
 
-                // If passwords match, create a session and redirect
+                // // If passwords match, create a session and redirect
+                // if (isValid) {
+                //     req.session.userId = user.id;
+                //     res.redirect('/dashboard'); // Redirect to dashboard or any other page
+                //     console.log("Log in successful!");
+                // } else {
+                //     res.status(401).send('Invalid email or password.'); // Unauthorized
+                // }
+                // Assuming you have a function to check login credentials
                 if (isValid) {
-                    req.session.userId = user.id;
-                    res.redirect('/dashboard'); // Redirect to dashboard or any other page
-                    console.log("Log in successful!");
+                    // Redirect to the tool UI if login is successful
+                    res.redirect('http://localhost:8080/#');
                 } else {
+                    // Redirect back to the login page if login fails
                     res.status(401).send('Invalid email or password.'); // Unauthorized
+                    res.redirect('/login');
                 }
             });
         } else {
