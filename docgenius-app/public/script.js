@@ -4,6 +4,7 @@ const sidebar = document.getElementById('sidebar');
 const translationSection = document.querySelector('.translation-section');
 const sentimentSection = document.querySelector('.sentiment-section'); // Add this line
 const targetLanguageSelect = document.getElementById('target-language');
+const visualRepresentationSection = document.querySelector('.visual-representation-section');
 
 // Add click event listener to toggle sidebar visibility (optional)
 sidebar.addEventListener('click', function() {
@@ -22,7 +23,8 @@ sidebarLinks.forEach(link => {
 
 // Hide all content sections initially
 translationSection.style.display = 'none';
-sentimentSection.style.display = 'none'; // Add this line
+sentimentSection.style.display = 'none'; 
+visualRepresentationSection.style.display = 'none';
 
 function handleLinkClick(event) {
   // Extract the menu item text
@@ -45,8 +47,8 @@ function handleLinkClick(event) {
   } else if (selectedItem === 'Sentimental Analysis') {
     sentimentSection.style.display = 'block'; // Add this block for Sentimental Analysis
     // You can add logic here to initialize elements or perform any actions specific to the Sentimental Analysis section
-  } else {
-    // contentPlaceholder.innerHTML = `<h2>Content for ${selectedItem}</h2>`;
+  } else if (selectedItem === 'Visual Representation') {
+    visualRepresentationSection.style.display = 'block';
   }
 }
 

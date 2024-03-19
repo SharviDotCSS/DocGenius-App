@@ -1,0 +1,7 @@
+Sales Data for Q1 2023:
+
+Month      Sales
+-----------------
+January    1000
+February   1200
+March      1500

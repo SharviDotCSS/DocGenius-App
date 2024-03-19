@@ -186,7 +186,7 @@ app.post('/translate', async (req, res) => {
       },
     });
 
-    console.log('API Response:', translationResponse.data); // Correct the variable name
+    // console.log('API Response:', translationResponse.data); // Correct the variable name
 
     const translation = translationResponse.data.choices[0].message.content;
     res.json({ translation });
@@ -215,7 +215,7 @@ app.post('/sentiment', async (req, res) => {
       },
     });
 
-    console.log('API Response:', sentimentResponse.data);
+    // console.log('API Response for sentimental analysis:', sentimentResponse.data);
 
     const sentiment = sentimentResponse.data.choices[0].message.content;
     res.json({ sentiment });
@@ -225,3 +225,35 @@ app.post('/sentiment', async (req, res) => {
   }
 });
 
+//--------------------------------------------------------------------------------
+//Visual representation
+app.post('/generate-chart', async (req, res) => {
+  const { document } = req.body;
+
+  try {
+    // Call ChatGPT API to generate chart code based on the document
+    const chartResponse = await axios.post('https://api.openai.com/v1/chat/completions', {
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system', content: 'Give me "char.js" code for representing this data visually .' },
+        { role: 'user', content: document },
+      ],
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${OpenAIAPIKey}`,
+      },
+    });
+
+    console.log('API Response for visual representation:', chartResponse.data);
+
+    // Extract chart code from API response
+    const chartCode = chartResponse.data.choices[0].message.content;
+
+    // Send chart code as JSON response
+    res.json({ chartCode });
+  } catch (error) {
+    console.error('Error generating chart code:', error.message);
+    res.status(500).json({ error: 'Internal Server Error', details: error.message });
+  }
+});
