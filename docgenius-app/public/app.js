@@ -1,44 +1,10 @@
 //for client-side functioning
 
-//1. Summarization
-// document.getElementById('summarizeForm').addEventListener('submit', async function (event) {
-//     event.preventDefault();
-
-//     const fileInput = document.getElementById('fileInput');
-//     const file = fileInput.files[0];
-
-//     if (!file) {
-//       alert('Please choose a .txt file.');
-//       return;
-//     }
-
-//     const reader = new FileReader();
-
-//     reader.onload = async function (event) {
-//       const documentContent = event.target.result;
-
-//       const response = await fetch('/summarize', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/x-www-form-urlencoded',
-//         },
-//         body: `document=${encodeURIComponent(documentContent)}`,
-//       });
-
-//       const result = await response.json();
-
-//       document.getElementById('summaryResult').innerHTML = `<p><strong>Summary:</strong> ${result.summary}</p>`;
-//     };
-
-//     reader.readAsText(file);
-//   });
-
-// app.js
-
-document.getElementById('document-upload').addEventListener('change', async function (event) {
-  event.preventDefault(); // Prevent default form submission
-
-  const file = event.target.files[0];
+//summarize n keywords
+document.getElementById('summarize-button').addEventListener('click', async function () {
+  const fileInput = document.getElementById('document-upload');
+  const file = fileInput.files[0];
+  const wordLimit = document.getElementById('wordLimit').value; // Get selected word limit
 
   if (!file) {
     alert('Please choose a .txt file.');
@@ -50,45 +16,40 @@ document.getElementById('document-upload').addEventListener('change', async func
   reader.onload = async function (event) {
     const documentContent = event.target.result;
 
-    const response = await fetch('/summarize', {
+    // Call the API to get summary
+    const summaryResponse = await fetch('/summarize', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded' // Updated content type
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
-      body: `document=${encodeURIComponent(documentContent)}` // Updated body format
+      body: `document=${encodeURIComponent(documentContent)}&wordLimit=${wordLimit}` // Pass word limit to the server
     });
 
-    const result = await response.json();
+    const summaryResult = await summaryResponse.json();
 
-    document.getElementById('summaryResult').innerHTML = `<p><strong>Summary:</strong> ${result.summary}</p>`;
+    // Display summary
+    const summaryElement = document.getElementById('summaryResult');
+    summaryElement.innerHTML = `<p><strong>Summary:</strong> ${summaryResult.summary}</p>`;
+
+    // Call the API to get keywords
+    const keywordsResponse = await fetch('/getKeywords', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `document=${encodeURIComponent(documentContent)}`
+    });
+
+    const keywordsResult = await keywordsResponse.json();
+
+    // Display keywords
+    const keywordsElement = document.getElementById('keywords');
+    keywordsElement.innerHTML = `<p><strong>Keywords:</strong> ${keywordsResult.keywords}</p>`;
   };
 
   reader.readAsText(file);
 });
 
-
-// Add this code for translation--wrong filepath
-//   document.getElementById('translate-button').addEventListener('click', async function () {
-//   const targetLanguage = document.getElementById('target-language').value;
-//   const documentContent = document.getElementById('document-upload').value; // Assuming you have an input field for document content
-
-//   try {
-//     const response = await fetch('/translate', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/x-www-form-urlencoded',
-//       },
-//       body: `document=${encodeURIComponent(documentContent)}&targetLanguage=${targetLanguage}`,
-//     });
-
-//     const result = await response.json();
-
-//     document.getElementById('translation-result').innerHTML = `<p><strong>Translation:</strong> ${result.translation}</p>`;
-//   } catch (error) {
-//     console.error('Error translating document:', error.message);
-//     alert('Error translating document. Please try again.');
-//   }
-// });
 
 // ----------------------------------------------------------------------------------
 //Translation
@@ -168,59 +129,273 @@ document.getElementById('analyze-sentiment-button').addEventListener('click', as
 });
 
 //--------------------------------------------------------------------------------
-// Visual representation
-document.getElementById('visual-representation-button').addEventListener('click', async function () {
-  const fileInput = document.getElementById('document-upload');
-  const file = fileInput.files[0];
+// Visual representation 1
+// document.getElementById('visual-representation-button').addEventListener('click', async function () {
+//   const fileInput = document.getElementById('document-upload');
+//   const file = fileInput.files[0];
 
-  if (!file) {
-    alert('Please choose a file.');
-    return;
+//   if (!file) {
+//     alert('Please choose a file.');
+//     return;
+//   }
+
+//   const reader = new FileReader();
+
+//   reader.onload = async function (event) {
+//     const documentContent = event.target.result;
+
+//     try {
+//       const chartCode = await generateChartCode(documentContent);
+//       generateVisualization(chartCode);
+//     } catch (error) {
+//       console.error('Error generating visual representation:', error.message);
+//       alert('Error generating visual representation. Please try again.');
+//     }
+//   };
+
+//   reader.readAsText(file);
+// });
+
+// async function generateChartCode(documentContent) {
+//   try {
+//     const response = await fetch('/generate-chart', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ document: documentContent }),
+//     });
+
+//     const result = await response.json();
+//     return result.chartCode;
+//   } catch (error) {
+//     throw new Error('Failed to fetch chart code from server');
+//   }
+// }
+
+//2
+const visualdatabtn = document.getElementById('visual-representation-button');
+const chartCanvas = document.getElementById('chartCanvas');
+
+const chartTypes = ['bar', 'line', 'pie']; // Predefined chart type options
+
+visualdatabtn.addEventListener('change', async (event) => {
+  const file = event.target.files[0];
+  const formData = new FormData();
+  formData.append('document', file);
+
+  try {
+    const response = await fetch('/upload', {
+      method: 'POST',
+      body: formData
+    });
+
+    const chartConfig = {
+      type: null, // Initially set to null
+      data: {
+        labels: [], // Empty array for labels
+        datasets: [] // Empty array for datasets
+      }
+    };
+
+    const openAIResponse = await response.json();
+    // Parse OpenAI response to extract suggested chart type and potentially labels/data formatting
+
+    // Example: Assuming OpenAI suggests "bar" chart and provides labels & data
+    chartConfig.type = openAIResponse.suggestedChartType; // Replace with parsed type
+    chartConfig.data.labels = openAIResponse.labels; // Replace with parsed labels
+    chartConfig.data.datasets.push({
+      label: 'Data', // Adjust label if needed
+      data: openAIResponse.data, // Replace with parsed data
+      // ... other dataset options based on OpenAI suggestions
+    });
+
+    const ctx = chartCanvas.getContext('2d');
+    new Chart(ctx, chartConfig);
+  } catch (error) {
+    console.error(error);
+    alert('Error generating chart');
   }
-
-  const reader = new FileReader();
-
-  reader.onload = async function (event) {
-    const documentContent = event.target.result;
-
-    try {
-      // Perform any processing needed for visual representation
-      const visualData = processDataForVisualization(documentContent);
-
-      // Generate visual representation using chart.js or other method
-      generateVisualization(visualData);
-    } catch (error) {
-      console.error('Error generating visual representation:', error.message);
-      alert('Error generating visual representation. Please try again.');
-    }
-  };
-
-  reader.readAsText(file);
 });
 
-// Function to process document content for visualization (replace with your logic)
-function processDataForVisualization(documentContent) {
-  // Here you can process the document content to extract data for visualization
-  // For example, parse text data into structured format, perform calculations, etc.
-  // Return the processed data that will be used for generating the visual representation
-}
 
-// Function to generate visual representation using chart.js or other method (replace with your logic)
-function generateVisualization(visualData) {
-  // Here you can use chart.js or other libraries/methods to generate visual representations
-  // For example, create charts, graphs, diagrams, etc. based on the processed data
-  // Update the DOM with the generated visual representation
-  //trial
-  // Get the container element where you want to display the visual representation
-  const visualRepresentationResult = document.getElementById('visual-representation-result');
 
-  // Check if visualData is undefined or empty
-  if (typeof visualData === 'undefined' || !visualData.trim()) {
-    // Display an error message if the data is undefined or empty
-    visualRepresentationResult.innerHTML = "<p>No data received for visualization.</p>";
-  } else {
-    // Update the container with the received code
-    visualRepresentationResult.innerHTML = `<pre><code>${visualData}</code></pre>`;
-  }
-}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//  Commented code
+//----------------------------------------------------------------------------------
+//1. Summarization
+// document.getElementById('summarizeForm').addEventListener('submit', async function (event) {
+//     event.preventDefault();
+
+//     const fileInput = document.getElementById('fileInput');
+//     const file = fileInput.files[0];
+
+//     if (!file) {
+//       alert('Please choose a .txt file.');
+//       return;
+//     }
+
+//     const reader = new FileReader();
+
+//     reader.onload = async function (event) {
+//       const documentContent = event.target.result;
+
+//       const response = await fetch('/summarize', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/x-www-form-urlencoded',
+//         },
+//         body: `document=${encodeURIComponent(documentContent)}`,
+//       });
+
+//       const result = await response.json();
+
+//       document.getElementById('summaryResult').innerHTML = `<p><strong>Summary:</strong> ${result.summary}</p>`;
+//     };
+
+//     reader.readAsText(file);
+//   });
+
+// app.js
+
+//summarization 1 (fully working)
+// document.getElementById('document-upload').addEventListener('change', async function (event) {
+//   event.preventDefault(); // Prevent default form submission
+
+//   const file = event.target.files[0];
+
+//   if (!file) {
+//     alert('Please choose a .txt file.');
+//     return;
+//   }
+
+//   const reader = new FileReader();
+
+//   reader.onload = async function (event) {
+//     const documentContent = event.target.result;
+
+//     const response = await fetch('/summarize', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/x-www-form-urlencoded' // Updated content type
+//       },
+//       body: `document=${encodeURIComponent(documentContent)}` // Updated body format
+//     });
+
+//     const result = await response.json();
+
+//     document.getElementById('summaryResult').innerHTML = `<p><strong>Summary:</strong> ${result.summary}</p>`;
+//   };
+
+//   reader.readAsText(file);
+// });
+
+//summarize 1 (fully working)
+// document.getElementById('summarize-button').addEventListener('click', async function () {
+//   const fileInput = document.getElementById('document-upload');
+//   const file = fileInput.files[0];
+
+//   if (!file) {
+//     alert('Please choose a .txt file.');
+//     return;
+//   }
+
+//   const reader = new FileReader();
+
+//   reader.onload = async function (event) {
+//     const documentContent = event.target.result;
+
+//     const response = await fetch('/summarize', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/x-www-form-urlencoded'
+//       },
+//       body: `document=${encodeURIComponent(documentContent)}`
+//     });
+
+//     const result = await response.json();
+
+//     document.getElementById('summaryResult').innerHTML = `<p><strong>Summary:</strong> ${result.summary}</p>`;
+//   };
+
+//   reader.readAsText(file);
+// });
+
+//summary wordlimit
+// document.getElementById('summarize-button').addEventListener('click', async function () {
+//   const fileInput = document.getElementById('document-upload');
+//   const file = fileInput.files[0];
+//   const wordLimit = document.getElementById('wordLimit').value; // Get selected word limit
+
+//   if (!file) {
+//     alert('Please choose a .txt file.');
+//     return;
+//   }
+
+//   const reader = new FileReader();
+
+//   reader.onload = async function (event) {
+//     const documentContent = event.target.result;
+
+//     const response = await fetch('/summarize', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/x-www-form-urlencoded'
+//       },
+//       body: `document=${encodeURIComponent(documentContent)}&wordLimit=${wordLimit}` // Pass word limit to the server
+//     });
+
+//     const result = await response.json();
+
+//     document.getElementById('summaryResult').innerHTML = `<p><strong>Summary:</strong> ${result.summary}</p>`;
+//   };
+
+//   reader.readAsText(file);
+// });
+
+
+// Add this code for translation--wrong filepath
+//   document.getElementById('translate-button').addEventListener('click', async function () {
+//   const targetLanguage = document.getElementById('target-language').value;
+//   const documentContent = document.getElementById('document-upload').value; // Assuming you have an input field for document content
+
+//   try {
+//     const response = await fetch('/translate', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/x-www-form-urlencoded',
+//       },
+//       body: `document=${encodeURIComponent(documentContent)}&targetLanguage=${targetLanguage}`,
+//     });
+
+//     const result = await response.json();
+
+//     document.getElementById('translation-result').innerHTML = `<p><strong>Translation:</strong> ${result.translation}</p>`;
+//   } catch (error) {
+//     console.error('Error translating document:', error.message);
+//     alert('Error translating document. Please try again.');
+//   }
+// });

@@ -35,22 +35,21 @@ function handleLinkClick(event) {
 
   // Hide all content sections initially
   translationSection.style.display = 'none';
-  sentimentSection.style.display = 'none'; // Add this line
-
-  // Replace this with your logic to dynamically update the content
-  const contentPlaceholder = document.querySelector('.variable-content .container');
+  sentimentSection.style.display = 'none';
+  visualRepresentationSection.style.display = 'none'; // Hide the visual representation section
 
   // Show the relevant content section based on the selected item
   if (selectedItem === 'Translation') {
     translationSection.style.display = 'block';
     // You can add logic here to initialize elements or perform any actions specific to the Translation section
   } else if (selectedItem === 'Sentimental Analysis') {
-    sentimentSection.style.display = 'block'; // Add this block for Sentimental Analysis
+    sentimentSection.style.display = 'block';
     // You can add logic here to initialize elements or perform any actions specific to the Sentimental Analysis section
   } else if (selectedItem === 'Visual Representation') {
     visualRepresentationSection.style.display = 'block';
   }
 }
+
 
 //Redirecting event listeners
 
@@ -63,6 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
       window.location.href = 'Signup-module/signup.html';
   });
 });
+
+
 
 
 

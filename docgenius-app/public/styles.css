@@ -4,9 +4,39 @@ body {
   padding: 0;
 }
 
+.upload-wrapper {
+  margin-top: 20px; /* Add some top margin for spacing */
+}
+
+.upload-label {
+  font-size: 2rem; /* Adjust font size as needed */
+  margin-right: 10px; /* Add right margin for spacing */
+  font-weight: bold;
+}
+
+.upload-input {
+  flex: 1; /* Allow the input to take remaining space */
+  margin-right: 10px; /* Add right margin for spacing */
+  font-size: small;
+}
+
 .container-fluid {
   height: 100vh;
 }
+
+#file-upload-button{
+  background-color: #0e0e0e;
+}
+
+.col-10.px-5.d-flex {
+  padding: 0 !important; /* Remove padding */
+}
+
+.container-fluid > .row > .col-10.px-5.d-flex {
+  padding: 0; /* Remove padding */
+}
+
+
 
 /* Header styles */
 
@@ -68,15 +98,53 @@ header {
 /* Upload section styles (replace placeholders) */
 
 .upload-wrapper {
-  display: flex;
-  align-items: center;
-  margin-left: 1rem;
+  margin-bottom: 20px; /* Add spacing below the upload section */
 }
 
-.upload-wrapper label {
-  font-size: 0.8rem; /* Adjust font size */
-  margin-right: 0.5rem; /* Add spacing */
+.upload-label {
+  font-size: 1rem;
+  margin-right: 10px;
 }
+
+.upload-input-container {
+  position: relative;
+  display: flex; /* Use flexbox to align the icon and input */
+}
+
+.upload-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.upload-icon {
+  padding: 5px; /* Add padding to the icon container */
+  cursor: pointer;
+  display: flex; /* Use flexbox to align the icon vertically */
+  align-items: center; /* Center the icon vertically */
+}
+
+.upload-icon {
+  padding: 5px; /* Add padding to the icon container */
+  cursor: pointer;
+  display: inline-flex; /* Use inline-flex to align the icon inline with the text */
+  align-items: center; /* Center the icon vertically */
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 5px; /* Add border-radius for rounded corners */
+  transition: background-color 0.3s; /* Add transition for hover effect */
+}
+
+/* Style the icon on hover */
+.upload-icon:hover {
+  background-color: #f0f0f0; /* Light gray background on hover */
+}
+
+
+
 
 /* Sidebar styles */
 
@@ -118,4 +186,135 @@ header {
 
 .fixed-content {
   border-right: 1px solid #ddd;
+  background-color: #f1d9ff;
+  padding: 1rem;
 }
+
+.variable-content{
+  background-color: antiquewhite;
+  padding: 1rem;
+}
+
+#chart-canvas {
+  width: 100%;
+  height: 400px; /* Adjust height as needed */
+  border: 1px solid #ccc; /* Add border for visual clarity */
+}
+
+/* Summary section styles */
+.summary-options {
+  margin-top: 20px; /* Add top margin for spacing */
+}
+
+.summary-options span {
+  font-weight: bold; /* Make the label bold */
+}
+
+.summary-options select,
+.summary-options button {
+  margin-left: 10px; /* Add left margin for spacing between elements */
+}
+
+#summaryResult {
+  margin-top: 20px; /* Add top margin for spacing */
+}
+
+#summaryResult p {
+  line-height: 1.6; /* Adjust line height for better readability */
+}
+
+/* Dropdown list styles */
+.summary-options select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  /* Add custom arrow icon */
+  /* background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path d="M7 10l5 5 5-5z"/></svg>'); */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+/* Dropdown list hover/focus styles */
+.summary-options select:hover,
+.summary-options select:focus {
+  border-color: #007bff;
+}
+
+/* Translation section styles */
+.translation-section {
+  margin-top: 20px; /* Add top margin for spacing */
+}
+
+.language-selection {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Add bottom margin for spacing */
+}
+
+.language-selection label {
+  font-weight: bold; /* Make the label bold */
+  margin-right: 10px; /* Add right margin for spacing */
+}
+
+#translation-result {
+  margin-top: 20px; /* Add top margin for spacing */
+}
+
+/* Translation result styles */
+#translation-result p {
+  line-height: 1.6; /* Adjust line height for better readability */
+}
+
+/* Sentiment section styles */
+.sentiment-section {
+  margin-top: 20px; /* Add top margin for spacing */
+  display: flex; /* Use flexbox */
+  justify-content: space-between; /* Distribute items evenly */
+  align-items: center; /* Align items vertically */
+}
+
+/* Sentiment button styles */
+#analyze-sentiment-button {
+  margin-bottom: 10px; /* Add bottom margin for spacing */
+  margin-left: auto; /* Move the button to the right */
+}
+
+/* Sentiment result styles */
+#sentiment-result {
+  margin-top: 20px; /* Add top margin for spacing */
+}
+
+/* Sentiment result text styles */
+#sentiment-result p {
+  line-height: 1.6; /* Adjust line height for better readability */
+}
+
+/* Visual representation section styles */
+.visual-representation-section {
+  margin-top: 20px; /* Add top margin for spacing */
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack items vertically */
+}
+
+/* Visual representation button styles */
+#visual-representation-button {
+  margin-bottom: 10px; /* Add bottom margin for spacing */
+}
+
+/* Visual representation result styles */
+#visual-representation-result {
+  margin-bottom: 10px; /* Add bottom margin for spacing */
+}
+
+/* Chart canvas styles */
+#chart-canvas {
+  width: 100%; /* Make the canvas responsive */
+  height: 400px; /* Set a fixed height */
+  border: 1px solid #ccc; /* Add border for visual clarity */
+}
+
+
