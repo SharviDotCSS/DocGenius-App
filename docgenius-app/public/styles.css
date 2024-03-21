@@ -2,6 +2,7 @@ body {
   font-family: sans-serif;
   margin: 0;
   padding: 0;
+  overflow: hidden; /* Hide the scrollbar on the body */
 }
 
 .upload-wrapper {
@@ -22,6 +23,22 @@ body {
 
 .container-fluid {
   height: 100vh;
+  overflow-y: auto; /* Add vertical scrollbar if content overflows */
+}
+
+.col-10 {
+  display: flex;
+}
+
+.fixed-content,
+.variable-content {
+  height: 100%; /* Set the height of the content areas to fill the container */
+  overflow-y: auto; /* Add vertical scrollbar if content overflows */
+}
+
+.col-2 {
+  height: 100%;
+  overflow-y: auto; /* Add vertical scrollbar if content overflows */
 }
 
 #file-upload-button{
@@ -186,12 +203,12 @@ header {
 
 .fixed-content {
   border-right: 1px solid #ddd;
-  background-color: #f1d9ff;
+  background-color: #cbd6fe;
   padding: 1rem;
 }
 
 .variable-content{
-  background-color: antiquewhite;
+  background-color: rgb(222, 250, 215);
   padding: 1rem;
 }
 

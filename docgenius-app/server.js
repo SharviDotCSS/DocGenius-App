@@ -234,7 +234,7 @@ app.post('/getKeywords', async (req, res) => {
       const messages = [assistantMessage, userMessage];
     
       // Introduce a delay of 2 seconds (2000 milliseconds) between API requests
-      await delay(200);
+      await delay(3000);
 
       const response = await axios.post(apiUrl, {
         messages,
