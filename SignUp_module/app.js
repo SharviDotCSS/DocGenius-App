@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const app = express();
+const bcrypt = require('bcrypt');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -68,20 +69,28 @@ app.get('/script.js', (req, res) => {
 // });
 
 app.post('/signup', (req, res) => {
-  const { Username, Email , Password, CPassword} = req.body;
+  const { Username, Email, Password, CPassword } = req.body;
 
-  // Validate and save data to the database (add proper validation and hashing)
-  // const trimmedUsername = Username.trim(); // Trim leading and trailing spaces
-  const sql = 'INSERT INTO user (Username, Email, Password, CPassword) VALUES (?, ?, ?, ?)';
-  db.query(sql, [ Username, Email, Password, CPassword ], (err, result) => {
+  // Validate and hash the password
+  bcrypt.hash(Password, 10, (err, hashedPassword) => {
+    if (err) {
+      console.error('Error hashing password:', err);
+      return res.status(500).send('Error occurred while signing in.');
+    }
+
+    // Save data to the database
+    const sql = 'INSERT INTO user (Username, Email, Password, CPassword, `Hashed-Password`) VALUES (?, ?, ?, ?, ?)';
+    db.query(sql, [Username, Email, Password, CPassword, hashedPassword], (err, result) => {
       if (err) {
-          console.error('Error saving user data:', err);
-          return res.status(500).send('Error occurred while signing in.');
+        console.error('Error saving user data:', err);
+        return res.status(500).send('Error occurred while signing in.');
       }
       console.log('User signed in:', Username);
       res.send('Sign-in successful');
+    });
   });
 });
+
 
 // Start the Express.js server
 const port = 2000;
