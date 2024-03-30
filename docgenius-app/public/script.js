@@ -64,6 +64,49 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+//ststic chrt func
+// Function to draw a bar chart
+function drawBarChart() {
+  // Data for the chart
+  const data = {
+    labels: ['Total Revenue', 'Tech Gadgets', 'Home Appliances', 'Health & Wellness'],
+    datasets: [{
+      label: 'Achievements',
+      backgroundColor: 'rgba(255, 215, 0, 0.5)', // Yellow color
+          borderColor: 'rgba(255, 215, 0, 1)', // Yellow color
+      borderWidth: 1,
+      data: [20, 15, 10, 8] // Sample data for achievements
+    }]
+  };
+
+  // Options for the chart
+  const options = {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  };
+
+  // Get the canvas element
+  const canvas = document.getElementById('chart-canvas').getContext('2d');
+
+  // Create a new bar chart
+  new Chart(canvas, {
+    type: 'bar',
+    data: data,
+    options: options
+  });
+}
+
+// Add event listener to the button
+document.getElementById('visual-representation-button').addEventListener('click', function () {
+  // Call the function to draw the chart
+  drawBarChart();
+});
+
 
 
 

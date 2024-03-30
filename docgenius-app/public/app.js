@@ -128,6 +128,80 @@ document.getElementById('analyze-sentiment-button').addEventListener('click', as
   reader.readAsText(file);
 });
 
+//sentiment chart
+// const reader = new FileReader();
+// reader.onload = async function (event) {
+//   const documentContent = event.target.result;
+  
+
+//   try {
+//     const response = await fetch('/sentiment', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/x-www-form-urlencoded',
+//       },
+//       body: `document=${encodeURIComponent(documentContent)}`,
+//     });
+
+//     const result = await response.json();
+
+//     document.getElementById('sentiment-result').innerHTML = `<p><strong>Sentiment:</strong> ${result.sentiment}</p>`;
+
+//     // Ensure that sentimentData is included in the response
+//     if (result.sentimentData) {
+//       // Call drawSentimentChart function with sentiment data
+//       drawSentimentChart(result.sentimentData);
+//     } else {
+//       console.error('Error: Sentiment data not found in response.');
+//     }
+//   } catch (error) {
+//     console.error('Error analyzing sentiment:', error.message);
+//     alert('Error analyzing sentiment. Please try again.');
+//   }
+// };
+
+
+//funct call
+// Define an async function to handle the click event
+// document.getElementById('analyze-sentiment-button').addEventListener('click', async function () {
+//   const fileInput = document.getElementById('document-upload');
+//   const file = fileInput.files[0];
+
+//   if (!file) {
+//     alert('Please choose a file.');
+//     return;
+//   }
+
+//   const reader = new FileReader();
+
+//   reader.onload = async function (event) {
+//     const documentContent = event.target.result;
+
+//     try {
+//       const response = await fetch('/sentiment', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/x-www-form-urlencoded',
+//         },
+//         body: `document=${encodeURIComponent(documentContent)}`,
+//       });
+
+//       const result = await response.json();
+
+//       document.getElementById('sentiment-result').innerHTML = `<p><strong>Sentiment:</strong> ${result.sentiment}</p>`;
+
+//       // Call drawSentimentChart function with sentiment data
+//       drawSentimentChart(result.sentimentData);
+//     } catch (error) {
+//       console.error('Error analyzing sentiment:', error.message);
+//       alert('Error analyzing sentiment. Please try again.');
+//     }
+//   };
+
+//   reader.readAsText(file);
+// });
+
+
 //--------------------------------------------------------------------------------
 // Visual representation 1
 // document.getElementById('visual-representation-button').addEventListener('click', async function () {

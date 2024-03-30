@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { OpenAIAPIKey } = require('./config'); // Add this line
 const axios = require('axios');
+const sentiment = require('sentiment');
+
 
 const app = express();
 
@@ -333,7 +335,7 @@ app.post('/translate', async (req, res) => {
 });
 
 //--------------------------------------------------------------------------------
-//Sentimental analysis
+//Sentimental analysis- working good no chart code
 app.post('/sentiment', async (req, res) => {
   const { document } = req.body;
 
@@ -351,6 +353,8 @@ app.post('/sentiment', async (req, res) => {
       },
     });
 
+    
+
     // console.log('API Response for sentimental analysis:', sentimentResponse.data);
 
     const sentiment = sentimentResponse.data.choices[0].message.content;
@@ -360,6 +364,31 @@ app.post('/sentiment', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error', details: error.message });
   }
 });
+
+//sentiment chart
+// // POST route for sentiment analysis
+// app.post('/sentiment', (req, res) => {
+//   const documentContent = req.body.document;
+
+//   // Perform sentiment analysis
+//   const analysisResult = sentiment(documentContent);
+
+//   // Prepare response JSON
+//   const response = {
+//     sentiment: analysisResult.score >= 0 ? 'positive' : 'negative', // Example: Determine sentiment based on score
+//     sentimentData: {
+//       positive: analysisResult.positive,
+//       negative: analysisResult.negative,
+//       neutral: analysisResult.neutral
+//     }
+//   };
+
+//   // Send response
+//   res.json(response);
+// });
+
+
+
 
 //--------------------------------------------------------------------------------
 //Visual representation 1
