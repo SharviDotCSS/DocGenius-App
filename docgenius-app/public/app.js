@@ -27,6 +27,9 @@ document.getElementById('summarize-button').addEventListener('click', async func
 
     const summaryResult = await summaryResponse.json();
 
+    // Store summary in local storage
+    localStorage.setItem('summary', JSON.stringify(summaryResult.summary));
+
     // Display summary
     const summaryElement = document.getElementById('summaryResult');
     summaryElement.innerHTML = `<p><strong>Summary:</strong> ${summaryResult.summary}</p>`;
@@ -41,6 +44,9 @@ document.getElementById('summarize-button').addEventListener('click', async func
     });
 
     const keywordsResult = await keywordsResponse.json();
+
+    // Store keywords in local storage
+    localStorage.setItem('keywords', JSON.stringify(keywordsResult.keywords));
 
     // Display keywords
     const keywordsElement = document.getElementById('keywords');
@@ -79,6 +85,9 @@ document.getElementById('translate-button').addEventListener('click', async func
       });
 
       const result = await response.json();
+      
+      // Store translation result in localStorage
+      localStorage.setItem('translationResult', JSON.stringify(result.translation));
 
       document.getElementById('translation-result').innerHTML = `<p><strong>Translation:</strong> ${result.translation}</p>`;
     } catch (error) {
@@ -118,6 +127,9 @@ document.getElementById('analyze-sentiment-button').addEventListener('click', as
 
       const result = await response.json();
 
+      // Store sentiment analysis result in localStorage
+      const localsentiment = localStorage.setItem('sentimentResult', JSON.stringify(result.sentiment));
+      console.log('localsentimentval:',localsentiment);
       document.getElementById('sentiment-result').innerHTML = `<p><strong>Sentiment:</strong> ${result.sentiment}</p>`;
     } catch (error) {
       console.error('Error analyzing sentiment:', error.message);
@@ -283,7 +295,8 @@ visualdatabtn.addEventListener('change', async (event) => {
       data: openAIResponse.data, // Replace with parsed data
       // ... other dataset options based on OpenAI suggestions
     });
-
+      // Store chart data in local storage
+  localStorage.setItem('chartData', JSON.stringify(chartData));
     const ctx = chartCanvas.getContext('2d');
     new Chart(ctx, chartConfig);
   } catch (error) {
@@ -293,6 +306,21 @@ visualdatabtn.addEventListener('change', async (event) => {
 });
 
 
+//--------------------------------------------------------------------------------
+//check local storage
+// Retrieve stored data from localStorage
+const summary = localStorage.getItem('summary');
+const keywords = localStorage.getItem('keywords');
+const translationResult = localStorage.getItem('translationResult');
+const sentimentResult = localStorage.getItem('sentimentResult');
+const chartData = localStorage.getItem('chartData');
+
+// Log the retrieved data to the console
+console.log('localSummary:', summary);
+console.log('localKeywords:', keywords);
+console.log('localTranslation Result:', translationResult);
+console.log('localSentiment Result:', sentimentResult);
+console.log('localChart Data:', chartData);
 
 
 

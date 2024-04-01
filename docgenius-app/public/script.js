@@ -107,6 +107,11 @@ document.getElementById('visual-representation-button').addEventListener('click'
   drawBarChart();
 });
 
+function redirectToDashboard() {
+  // Set the URL of the dashboard.html page
+  window.location.href = 'dashboard.html';
+}
+
 
 
 

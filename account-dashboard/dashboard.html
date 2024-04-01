@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DocGenius - Account Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evSX huddled7glt/7zC+GEUw1+BsVCXhVWNLxnWCj6S9XO4C+yLJz0jNLXLqev/m0" crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+  <div>
+    <div id="navbar">
+      <h1 id="navtitle">DocGenius - Account Dashboard</h1>
+      <span id="username"></span>
+    </div>
+    <div id="analysis-history" class="row row-cols-1 row-cols-md-2 g-4">
+      <!-- Analysis History Cards will be dynamically added here -->
+    </div>
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="modal-content"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="dashboard.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-OgwbZS7/BXzYhOCvAUJyLMzIolLxQVaU1T9sFldjVEhbM/Ylm3WXLctxRkWNn7E5"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
