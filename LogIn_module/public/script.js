@@ -1,3 +1,98 @@
+
+const form = document.getElementById('login-form');
+    const passwordInput = document.getElementById('password');
+    const passwordError = document.getElementById('password-error');
+
+    form.addEventListener('submit', function(event) {
+      const password = passwordInput.value;
+
+      if (!isPasswordValid(password)) {
+        event.preventDefault(); // Prevent form submission
+        passwordError.textContent = "Password must be at least 8 characters long and contain at least one uppercase letter, one digit, and one special character.";
+        passwordInput.classList.add('error');
+      } else {
+        passwordError.textContent = "";
+        passwordInput.classList.remove('error');
+      }
+    });
+
+    function isPasswordValid(password) {
+      // Password must be at least 8 characters long and contain at least one uppercase letter, one digit, and one special character
+      const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      return regex.test(password);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // document.addEventListener('DOMContentLoaded', () => {
 //     const loginForm = document.getElementById('login-form');
 //     const emailInput = document.getElementsByName('email')[0];

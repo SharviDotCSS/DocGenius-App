@@ -143,171 +143,14 @@
 // });
 
 
-//-----------chatgpt-----simplified------------
-// const express = require('express');
-// const session = require('express-session');
-// const mysql = require('mysql2');
-// const bcrypt = require('bcrypt');
-// const bodyParser = require('body-parser');
-// const crypto = require('crypto');
-// const path = require('path');
-
-// const app = express();
-
-// // Generate a random secret key
-// const secretKey = crypto.randomBytes(32).toString('hex');
-// console.log(secretKey);
-
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(session({
-//     secret: secretKey,
-//     resave: true,
-//     saveUninitialized: true
-// }));
-
-// const db = mysql.createConnection({
-//     host: 'localhost',
-//     user: 'root',
-//     password: 'sharvipw#2003',
-//     database: 'docgenius',
-// });
-
-// db.connect(err => {
-//     if (err) {
-//         console.error('Error connecting to MySQL:', err);
-//         process.exit(1);
-//     } else {
-//         console.log('Connected to MySQL database');
-//     }
-// });
-
-// app.use(express.static(path.join(__dirname, 'public')));
-
-// app.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'public', 'login.html'));
-// });
-
-// app.post("/login", (req, res) => {
-//     const { Email, Password } = req.body;
-//     db.query("SELECT * FROM user WHERE Email = ?", [Email, Password], (error, results, fields) => {
-//         if (error) {
-//             console.error('Error querying database:', error);
-//             return res.status(500).send('Error occurred while logging in.');
-//         }
-//         if (results.length === 0) {
-//             return res.redirect("/");
-//         }
-//         const user = results[0];
-//         bcrypt.compare(Password, user.Password, (err, isValid) => {
-//             if (err) {
-//                 console.error('Error comparing passwords:', err);
-//                 return res.status(500).send('Error occurred while logging in.');
-//             }
-//             if (isValid) {
-//                 req.session.userId = user.id; // Store user ID in session
-//                 res.redirect("/docgenius");
-//             } else {
-//                 res.redirect("/");
-//             }
-//         });
-//     });
-// });
-
-// app.get("/docgenius", (req, res) => {
-//     // Check if user is logged in
-//     if (!req.session.userId) {
-//         return res.redirect("/");
-//     }
-//     res.sendFile(path.join(__dirname, "docgenius-app", "public", "index.html"));
-// });
-
-// const port = 7000;
-// app.listen(port, () => {
-//     console.log(`Server is running on port ${port}`);
-// });
-
-
-//-------------online code------------------
-// const mysql = require('mysql2');
-// const express = require('express');
-// const session = require('express-session');
-// const path = require('path');
-
-// const connection = mysql.createConnection({
-// 	host: 'localhost',
-//      user: 'root',
-//      password: 'sharvipw#2003',
-//      database: 'docgenius',
-// });
-
-// const app = express();
-
-// app.use(session({
-// 	secret: 'secret',
-// 	resave: true,
-// 	saveUninitialized: true
-// }));
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.static(path.join(__dirname, 'static')));
-
-// // http://localhost:3000/
-// app.get('/', function(request, response) {
-// 	// Render login template
-// 	response.sendFile(path.join(__dirname + '/login.html'));
-// });
-
-// // http://localhost:3000/auth
-// app.post('/auth', function(request, response) {
-// 	// Capture the input fields
-// 	let Email = request.body.email;
-// 	let Password = request.body.password;
-// 	// Ensure the input fields exists and are not empty
-// 	if (Email && Password) {
-// 		// Execute SQL query that'll select the account from the database based on the specified username and password
-// 		connection.query('SELECT * FROM user WHERE Email = ? AND Password = ?', [Email, Password], function(error, results, fields) {
-// 			// If there is an issue with the query, output the error
-// 			if (error) throw error;
-// 			// If the account exists
-// 			if (results.length > 0) {
-// 				// Authenticate the user
-// 				request.session.loggedin = true;
-// 				request.session.username = Email;
-// 				// Redirect to home page
-// 				response.redirect('/home');
-// 			} else {
-// 				response.send('Incorrect Username and/or Password!');
-// 			}			
-// 			response.end();
-// 		});
-// 	} else {
-// 		response.send('Please enter Username and Password!');
-// 		response.end();
-// 	}
-// });
-
-// // http://localhost:3000/home
-// app.get('/home', function(request, response) {
-// 	// If the user is loggedin
-// 	if (request.session.loggedin) {
-// 		// Output username
-// 		response.send('Welcome back, ' + request.session.Email + '!');
-// 	} else {
-// 		// Not logged in
-// 		response.send('Please login to view this page!');
-// 	}
-// 	response.end();
-// });
-
-// app.listen(3000);
-
-
-
+//-----------------------------------------------------------------------------------------
+//Thislogin funct works
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2/promise'); // Using promise-based MySQL library
 const path = require('path'); // Import the path module
 const app = express();
+const session = require('express-session');
 const port = 7000; // Adjust port number if needed
 
 // Replace with your actual database credentials
@@ -317,6 +160,13 @@ const pool = mysql.createPool({
   password: 'sharvipw#2003', // **Important:** Secure your password in production!
   database: 'docgenius'
 });
+
+//session
+app.use(session({
+  secret: '10',
+  resave: false,
+  saveUninitialized: false
+}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -354,12 +204,14 @@ app.post('/login', async (req, res) => {
     if (password !== user.Password) { // Replace 'hashed_password' with your actual column name
       // Handle invalid password case (optional: display error message)
       console.error('Invalid password');
-      res.status(401).send('Invalid email or password'); // Send appropriate error response
+    //   res.status(401).send('Invalid email or password'); // Send appropriate error response
       return;
     }
 
     // Login successful:
-    console.log('Login successful for user:', user.email);
+    console.log('Login successful for user:', user.Email);
+    // Store username in the session
+    req.session.username = user.Username;
     // Replace with appropriate response based on your authentication strategy (e.g., session management or token)
     res.redirect('http://localhost:8080/#'); // Redirect to the target URL
   } catch (error) {

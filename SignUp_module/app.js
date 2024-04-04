@@ -86,7 +86,9 @@ app.post('/signup', (req, res) => {
         return res.status(500).send('Error occurred while signing in.');
       }
       console.log('User signed in:', Username);
-      res.send('Sign-in successful');
+      // res.send('Sign-in successful');
+      // res.redirect('http://localhost:7000/');
+      res.status(200).send(`<script>alert('Now you are part of the DocGenius community!'); window.location.href = 'http://localhost:7000/';</script>`);
     });
   });
 });
