@@ -190,6 +190,13 @@ header {
   transition: background-color 0.2s ease-in-out;
 }
 
+.nav-link.active,
+.nav-link:focus,
+.nav-link:hover {
+    background-color: #005ec2; /* Set background color for active/focused/hovered links */
+    color: white; /* Set text color for active/focused/hovered links */
+}
+
 /* .nav-link:hover {
   background-color: #f5f5f5;
 }

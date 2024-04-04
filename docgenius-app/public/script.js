@@ -91,7 +91,9 @@ function drawBarChart() {
   };
 
   // Get the canvas element
-  const canvas = document.getElementById('chart-canvas').getContext('2d');
+  const canvas = document.getElementById('chart-canvas');
+  // Get the 2D drawing context
+  const context = canvas.getContext('2d');
 
   // Create a new bar chart
   new Chart(canvas, {
@@ -99,12 +101,30 @@ function drawBarChart() {
     data: data,
     options: options
   });
+
+  const imageDataUrl = canvas.toDataURL();
+  localStorage.setItem('chartImageData', imageDataUrl);
+
+  // // Convert canvas to data URL (image)
+  // const imageDataUrl = canvas.toDataURL();
+
+  // // Store image data in localStorage
+  // localStorage.setItem('chartImageData', imageDataUrl);
 }
 
 // Add event listener to the button
 document.getElementById('visual-representation-button').addEventListener('click', function () {
+  // Get the canvas element
+  // const canvas = document.getElementById('chart-canvas');
+  // Get the 2D drawing context
+  // const context = canvas.getContext('2d');
   // Call the function to draw the chart
   drawBarChart();
+  // Convert canvas to data URL (image)
+  // const imageDataUrl = canvas.toDataURL();
+
+  // Store image data in localStorage
+  // localStorage.setItem('chartImageData', imageDataUrl);
 });
 
 function redirectToDashboard() {
