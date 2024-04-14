@@ -11,8 +11,8 @@ const analysisHistory = [
   // Add more entries as needed
 ];
 
-const username = 'username'; // Replace with actual username
-usernameElement.textContent = username;
+// const username = 'username'; // Replace with actual username
+// usernameElement.textContent = username;
 
 // function createAnalysisCard(entry) {
 //   const card = document.createElement('div');
